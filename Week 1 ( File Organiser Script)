@@ -1,1 +1,20 @@
+import os
+import shutil
 
+folder = input("Enter the folder path to sort: ")
+
+if not os.path.isdir(folder):
+    print("Invalid folder path.")
+    exit()
+
+for filename in os.listdir(folder):
+    file_path = os.path.join(folder, filename)
+    if os.path.isfile(file_path):
+        ext = os.path.splitext(filename)[1][1:].lower()
+        if ext == "":
+            ext = "no_extension"
+        dest_dir = os.path.join(folder, ext)
+        os.makedirs(dest_dir, exist_ok=True)
+        shutil.move(file_path, os.path.join(dest_dir, filename))
+
+print("Files sorted by extension.")
